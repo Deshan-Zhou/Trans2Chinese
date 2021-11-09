@@ -1,11 +1,9 @@
 import tkinter as tk  #引入tkinter模块
-from googletrans import Translator
+from googletrans import Translator   #pip install googletrans==4.0.0-rc1
 
-# maked by Mountain_Zhou_only
-# 设置Google翻译服务地址
-translator = Translator(service_urls=[
-      'translate.google.cn/'
-    ])
+#https://blog.csdn.net/Mountain_Zhou_only
+#设置Google翻译服务地址
+translator = Translator(service_urls=["translate.google.cn"])
 
 window = tk.Tk()
 window.title('论文整段翻译')
@@ -14,21 +12,22 @@ window.minsize(500,500)
 #点击按钮后执行的函数
 def changeString():
     text_output.delete('1.0','end')
-    index=1;
-    string_input='';
+    index=1
+    string_input=""
     #把输入到文本框里面的整段论文拼接起来
     while True:
         if text_input.get(str(index)+'.0',str(index)+'.end')==text_input.get('end'):
-            break;
+            break
         else:
-            if string_input=='':
+            if string_input=="":
                 string_input=text_input.get(str(index)+'.0',str(index)+'.end')
             else:
                 string_input =string_input+' '+text_input.get(str(index)+'.0',str(index)+'.end')
-            index=index+1;
+            index=index+1
             
     #处理好之后调用googletrans翻译整段英文论文
-    string_output = translator.translate(string_input, dest='zh-CN')
+    print(string_input)
+    string_output = translator.translate(text=string_input, dest='zh-CN')
     text_output.insert("insert",string_output.text)
 
 #创建文本输入框和按钮
